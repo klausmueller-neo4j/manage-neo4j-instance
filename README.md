@@ -1,19 +1,39 @@
-# Pause Neo4j Aura Instance
+# Manage Neo4j Aura Instances
 
-GitHub Action to pause a Neo4j Aura Instance that contains a specific keyword in the name.
+Automate the **start** and **stop** of Neo4j Aura instances containing a specific keyword in their names using GitHub Actions.
 
-This Action runs automatically following a cron schedule and uses Neo4j AURA DB REST API to pause a running instance.
+## Features
 
-For more information on Neo4j AURA Rest API visit https://neo4j.com/docs/aura/platform/api/overview/
+- **Automated Scheduling**: 
+  - **Start Instances**: Every weekday at **9 AM UTC-3**.
+  - **Stop Instances**: Every weekday at **6 PM UTC-3**.
+- **Manual Triggers**: Run workflows on-demand via GitHub Actions.
+- **Secure Credentials**: Utilizes GitHub Secrets to manage API credentials.
 
-# How to Use
+## Prerequisites
 
-For this workflow to run correctly it is necessary to define and add values for the following secrets used by the GitHub Action in repository settings:
+- **GitHub Repository**: Where the workflows and scripts will reside.
+- **Neo4j Aura Account**: With API access and necessary credentials.
 
-```
-CLIENT_ID
-CLIENT_PWD
-TENANT_ID
-```
+## Setup
 
-See https://neo4j.com/docs/aura/platform/api/authentication/#_creating_credentials for steps to create API Credentials from the Neo4j Aura Console.
+### 1. Add Repository Secrets
+
+To securely provide your API credentials to the workflows, add the following secrets to your GitHub repository:
+
+- `CLIENT_ID`: Your Neo4j Aura API client ID.
+- `CLIENT_PWD`: Your Neo4j Aura API client password.
+- `TENANT_ID`: Your Neo4j Aura tenant ID.
+
+#### How to Add Secrets:
+
+1. Navigate to your repository on GitHub.
+2. Click on **Settings**.
+3. In the left sidebar, select **Secrets and variables** > **Actions**.
+4. Click **New repository secret** and add each secret (`CLIENT_ID`, `CLIENT_PWD`, `TENANT_ID`).
+
+_For detailed instructions on creating API credentials, refer to [Neo4j Aura API Authentication](https://neo4j.com/docs/aura/platform/api/authentication/#_creating_credentials)._
+
+### 2. Workflow Files
+
+Place the following workflow YAML files in the `.github/workflows/` directory of your repository.
