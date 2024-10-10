@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import sys
 
 def get_access_token(user, pwd):
     response = requests.post(
@@ -31,30 +32,56 @@ def pause_instance(access_token, dbid):
             'Content-Type': 'application/json'
         }
     )
+    if response.status_code == 200:
+        print(f"Paused instance {dbid}")
+    else:
+        response.raise_for_status()
+
+def resume_instance(access_token, dbid):
+    response = requests.post(
+        f"https://api.neo4j.io/v1/instances/{dbid}/resume",
+        headers={
+            "Authorization": f"Bearer {access_token}",
+            'Content-Type': 'application/json'
+        }
+    )
     
-    # Check if the response indicates that the database is not running
-    if response.status_code == 400:
+    if response.status_code == 200:
+        print(f"Resumed instance {dbid}")
+    elif response.status_code == 400:
         error_response = response.json()
         if "errors" in error_response:
             for error in error_response["errors"]:
                 if error.get("reason") == "db-not-running":
                     print(f"Database {dbid} is not running. Skipping...")
-                    return  # Skip to the next instance
+                    return
+        response.raise_for_status()
+    else:
+        response.raise_for_status()
 
-    response.raise_for_status()  # Raise an error for other issues
-    print(f"Paused instance {dbid}")
-
-def main():
+def main(action):
     user = os.getenv('CLIENT_ID')
     pwd = os.getenv('CLIENT_PWD')
     tenant_id = os.getenv('TENANT_ID')
+
+    if not action in ['start', 'stop']:
+        print("Invalid action. Use 'start' or 'stop'.")
+        sys.exit(1)
 
     access_token = get_access_token(user, pwd)
     instances = get_instances(access_token, tenant_id)
 
     for instance in instances:
-        if "luigib" in instance['name']:
-            pause_instance(access_token, instance['id'])
+        if "klaus-sandbox" in instance['name']:
+            dbid = instance['id']
+            if action == 'stop':
+                pause_instance(access_token, dbid)
+            elif action == 'start':
+                resume_instance(access_token, dbid)
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        print("Usage: python manage_instances.py [start|stop]")
+        sys.exit(1)
+    action = sys.argv[1].lower()
+    main(action)
