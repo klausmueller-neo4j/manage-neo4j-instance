@@ -71,8 +71,10 @@ def main(action):
     access_token = get_access_token(user, pwd)
     instances = get_instances(access_token, tenant_id)
 
+    instance_names_to_manage = ['klaus-sandbox']
+
     for instance in instances:
-        if "klaus-sandbox" in instance['name']:
+        if instance_names_to_manage in instance['name']:
             dbid = instance['id']
             if action == 'stop':
                 pause_instance(access_token, dbid)
