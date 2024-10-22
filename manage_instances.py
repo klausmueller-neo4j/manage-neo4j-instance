@@ -74,7 +74,7 @@ def main(action):
     instance_names_to_manage = ['klaus-sandbox']
 
     for instance in instances:
-        if instance_names_to_manage in instance['name']:
+        if instance['name'] in instance_names_to_manage:
             dbid = instance['id']
             if action == 'stop':
                 pause_instance(access_token, dbid)
