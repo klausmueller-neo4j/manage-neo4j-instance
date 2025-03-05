@@ -71,7 +71,7 @@ def main(action):
     access_token = get_access_token(user, pwd)
     instances = get_instances(access_token, tenant_id)
 
-    instance_names_to_manage = ['klaus-sandbox']
+    instance_names_to_manage = ['klaus-sandbox', 'github-action-cron']
 
     for instance in instances:
         if instance['name'] in instance_names_to_manage:
