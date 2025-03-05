@@ -2,7 +2,6 @@ name: Stop Instances
 
 on:
   schedule:
-    # Runs at 21:00 UTC (6 PM UTC-3) from Monday to Friday
     - cron: '0 21 * * 1-5'
   workflow_dispatch:
 
@@ -17,8 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.1.1
         with:
-          python-version: '3.x'  # Specify the Python version you want to use
-
+          python-version: '3.x'  
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
