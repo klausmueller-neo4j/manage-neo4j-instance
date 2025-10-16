@@ -63,7 +63,7 @@ def main(action):
     user = os.getenv('CLIENT_ID')
     pwd = os.getenv('CLIENT_PWD')
     tenant_id = os.getenv('TENANT_ID')
-    instance_names_comma = os.getenv('INSTANCE_NAMES_COMMA').split(',')
+    instance_names_comma = os.getenv('INSTANCE_NAMES_COMMA').split(",")
 
     if not action in ['start', 'stop']:
         print("Invalid action. Use 'start' or 'stop'.")
