@@ -24,13 +24,14 @@ To securely provide your API credentials to the workflows, add the following sec
 - `CLIENT_ID`: Your Neo4j Aura API client ID.
 - `CLIENT_PWD`: Your Neo4j Aura API client password.
 - `TENANT_ID`: Your Neo4j Aura tenant ID.
+- `INSTANCE_NAMES_COMMA`: Comma-separated list of Neo4j Aura instance names.
 
 #### How to Add Secrets:
 
 1. Navigate to your repository on GitHub.
 2. Click on **Settings**.
 3. In the left sidebar, select **Secrets and variables** > **Actions**.
-4. Click **New repository secret** and add each secret (`CLIENT_ID`, `CLIENT_PWD`, `TENANT_ID`).
+4. Click **New repository secret** and add each secret (`CLIENT_ID`, `CLIENT_PWD`, `TENANT_ID`,`INSTANCE_NAMES_COMMA`).
 
 _For detailed instructions on creating API credentials, refer to [Neo4j Aura API Authentication](https://neo4j.com/docs/aura/platform/api/authentication/#_creating_credentials)._
 
