@@ -63,6 +63,7 @@ def main(action):
     user = os.getenv('CLIENT_ID')
     pwd = os.getenv('CLIENT_PWD')
     tenant_id = os.getenv('TENANT_ID')
+    instance_names_comma = os.getenv('INSTANCE_NAMES_COMMA').split(',')
 
     if not action in ['start', 'stop']:
         print("Invalid action. Use 'start' or 'stop'.")
@@ -71,7 +72,7 @@ def main(action):
     access_token = get_access_token(user, pwd)
     instances = get_instances(access_token, tenant_id)
 
-    instance_names_to_manage = ['test-resume']
+    instance_names_to_manage = instance_names_comma
 
     for instance in instances:
         if instance['name'] in instance_names_to_manage:
