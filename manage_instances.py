@@ -30,7 +30,8 @@ def pause_instance(access_token, dbid):
         headers={
             "Authorization": f"Bearer {access_token}",
             'Content-Type': 'application/json'
-        }
+        },
+        json={}
     )
     if response.status_code == 200:
         print(f"Paused instance {dbid}")
