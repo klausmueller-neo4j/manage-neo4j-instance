@@ -36,6 +36,8 @@ def pause_instance(access_token, dbid):
     if response.status_code == 200:
         print(f"Paused instance {dbid}")
     else:
+        error_response = response.json()
+        print(error_response)
         response.raise_for_status()
 
 def resume_instance(access_token, dbid):
