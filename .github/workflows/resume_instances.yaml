@@ -27,5 +27,6 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_PWD: ${{ secrets.CLIENT_PWD }}
           TENANT_ID: ${{ secrets.TENANT_ID }}
+          INSTANCE_NAMES_COMMA: ${{ secrets.INSTANCE_NAMES_COMMA }}
         run: |
           python manage_instances.py start

@@ -30,11 +30,14 @@ def pause_instance(access_token, dbid):
         headers={
             "Authorization": f"Bearer {access_token}",
             'Content-Type': 'application/json'
-        }
+        },
+        json={}
     )
     if response.status_code == 200:
         print(f"Paused instance {dbid}")
     else:
+        error_response = response.json()
+        print(error_response)
         response.raise_for_status()
 
 def resume_instance(access_token, dbid):
@@ -63,6 +66,7 @@ def main(action):
     user = os.getenv('CLIENT_ID')
     pwd = os.getenv('CLIENT_PWD')
     tenant_id = os.getenv('TENANT_ID')
+    instance_names_comma = os.getenv('INSTANCE_NAMES_COMMA').split(",")
 
     if not action in ['start', 'stop']:
         print("Invalid action. Use 'start' or 'stop'.")
@@ -71,7 +75,7 @@ def main(action):
     access_token = get_access_token(user, pwd)
     instances = get_instances(access_token, tenant_id)
 
-    instance_names_to_manage = ['klaus-sandbox']
+    instance_names_to_manage = instance_names_comma
 
     for instance in instances:
         if instance['name'] in instance_names_to_manage:
